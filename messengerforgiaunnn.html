@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Rokkitt&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/msg.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <title>MSG FOR GIAUNNN</title>
+</head>
+<body>
+    <div class="container">
+        <div class="top-section">
+            <h1>....</h1>
+            <p1>....</p1>
+        </div>
+
+        <div class="timeline">
+            <div class="line"></div>
+
+            <div class="section-m">
+                <div class="bead"></div>
+                <div class="content">
+                    <h2>Tiêu đề của thông điệp</h2>
+                    <p>Nội dung thông điệp của bạn sẽ được đặt ở đây.</p>
+                </div>
+            </div>
+        </div>
+        <div id="input-box">
+            <input type="text" id="user-message" placeholder="Nơi đón nhận sự góp ý <3 ">
+            <button onclick="sendMessage()">Gửi</button>
+        </div>
+
+        <div id="mockapi-data">
+            <!-- Nơi hiển thị dữ liệu từ MockAPI -->
+        </div>
+    </div>
+
+    <div class="menu-wrap">
+        <input type="checkbox" class="toggler">
+        <div class="hamburger"><div></div></div>
+        <div class="menu">
+            <div>
+                <div>
+                    <ul>
+                        <li><a href="index.html">FMJ_AR</a></li>
+                        <li><a href="PM.html">PM</a></li>
+                        <li><a href="TESTTEAM.html">TESTTEAM</a></li>
+                        <li><a href="DEVTEAM.html">DEVTEAM</a></li>
+                        <li><a href="THANKS.html">THANKS</a></li>
+                        <li><a href="messengerforgiaunnn.html">MESSENGER FOR GIAUNNN</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var messages = [];
+
+        function updateChat() {
+            var chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML = "";
+
+            messages.forEach(function (msg) {
+                chatBox.innerHTML += `<p><strong>${msg.sender}:</strong> ${msg.message}</p>`;
+            });
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function sendMessage() {
+            var userMessage = document.getElementById("user-message").value;
+
+            if (userMessage.trim() !== "") {
+                fetch('http://localhost:3000/send-message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ sender: "Bạn", message: userMessage }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('Message sent successfully');
+                        fetch('http://localhost:3000/get-messages')
+                        .then(response => response.json())
+                        .then(data => {
+                            messages = data.messages;
+                            updateChat();
+                            document.getElementById("user-message").value = "";
+                        })
+                        .catch(error => {
+                            console.error('Error getting messages:', error);
+                        });
+
+                        // Reload trang sau khi gửi tin nhắn thành công
+                        location.reload(true);
+                    } else {
+                        console.error('Error sending message:', data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error sending message:', error);
+                });
+            }
+        }
+
+        function loadMockAPIData() {
+            fetch('http://localhost:3000/get-mockapi-data')
+                .then(response => response.json())
+                .then(data => {
+                    // Hiển thị dữ liệu từ MockAPI ở đây
+                    var mockapiDataContainer = document.getElementById("mockapi-data");
+                    mockapiDataContainer.innerHTML = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('Error loading MockAPI data:', error);
+                });
+        }
+
+        // Load dữ liệu từ MockAPI khi trang được tải
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMockAPIData();
+        });
+    </script>
+    <div class="made-by">
+        Make by Pé Zào
+        <p class="tagline">One Team - One Family</p>
+    </div>
+</body>
+</html>
