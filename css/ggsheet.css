@@ -9,39 +9,61 @@
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
-	font-family: 'poppins', sans-serif;
 	font-size: 18px;
 }
 
 body{
-    background: var(--primary-color);
 	height: 100vh;
 	display: flex;
+    flex-direction: column;
 	align-items: center;
 	justify-content: center;
+    font-family: 'Rokkitt', serif;;
+    margin: 0;
+    padding: 0;
+    line-height: 1.4;
+    font-weight: 400;
+    color: aliceblue;
+    background-color:#0b1522;
+    background-image: linear-gradient(315deg, #0b1522 0%, #39556cd9 74%);
 }
+
+.container1 {
+    height: 10em;
+    display: flex;
+    align-items: center;
+    justify-content: center }
+
+.container1 p {
+    margin: 0 }
+
 .container{
 	width: 500px;
 	padding: 30px;
-	border: 1px solid #eeeeee;
 	border-radius: 10px;
-	background-color: #003b5b;
+	background-color: #095a85;
 }
-h4{
+
+h4{    
+    font-family: 'Rokkitt', serif;;
 	margin-bottom: 10px;
 	font-size: 24px;
 	color: white;
 }
-input{
+input{    
+    font-family: 'Rokkitt', serif;;
 	width: 100%;
 	padding: 10px;
 	margin-bottom: 10px;
 }
 textarea{
+    font-family: 'Rokkitt', serif;;
 	width: 100%;
 	padding: 10px;
 }
-#submit{
+
+#submit{    
+    font-family: 'Rokkitt', serif;;
 	border: none;
 	background-color: orangered;
 	color: white;
@@ -50,7 +72,7 @@ textarea{
 	border-radius: 5px;
 }
 #submit:hover{
-	background-color: #333333;
+	background-color: #ca0f0f;
 }
 
 
