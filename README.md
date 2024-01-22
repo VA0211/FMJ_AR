@@ -1,2 +1,1 @@
-# fordiu-0512
-Bản chính 
+Copy from fordiu add page to get feedback (store in google sheet)
